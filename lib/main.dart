@@ -11,7 +11,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      // rotas
+      initialRoute: '/',
+      routes: {
+//        '/',: (context) => Splash(),
+//        '/login': (context) => Login(),
+      },
     );
   }
 }
