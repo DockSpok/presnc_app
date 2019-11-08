@@ -5,14 +5,12 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:qr_utils/qr_utils.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatefulWidget {
+class IamHere extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _IamHereState createState() => _IamHereState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _IamHereState extends State<IamHere> {
   String _conteudo_qr = 'Undefined';
   String _qrBase64Content = 'Undefined';
   Image _qrImg;
@@ -35,7 +33,7 @@ class _MyAppState extends State<MyApp> {
         key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: Colors.deepOrange,
-          title: const Text('Presnc App - Marque Presença'),
+          title: const Text('Presnc App - Marcar minha presença'),
         ),
         body: Center(
           child: Container(
@@ -60,8 +58,7 @@ class _MyAppState extends State<MyApp> {
                     child: Text(
                       'Ler QR',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                          color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                   SizedBox(
@@ -70,15 +67,6 @@ class _MyAppState extends State<MyApp> {
                   Divider(),
                   SizedBox(
                     height: 24.0,
-                  ),
-                  Text(
-                    "Gerar QR: ",
-                    style: TextStyle(
-                      fontSize: 24.0,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 12.0,
                   ),
                   TextFormField(
                     controller: _qrTextEditingController,
@@ -92,29 +80,16 @@ class _MyAppState extends State<MyApp> {
                   ),
                   _qrImg != null
                       ? Container(
-                    child: _qrImg,
-                    width: 120.0,
-                    height: 120.0,
-                  )
+                          child: _qrImg,
+                          width: 220.0,
+                          height: 220.0,
+                        )
                       : Image.asset(
-                    'assets/images/ic_no_image.png',
-                    width: 120.0,
-                    height: 120.0,
-                    fit: BoxFit.cover,
-                  ),
-                  SizedBox(
-                    height: 16.0,
-                  ),
-                  FlatButton(
-                    color: Colors.orange,
-                    onPressed: () => _generateQR(_qrTextEditingController.text),
-                    child: Text(
-                      'Gerar QR',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                          'assets/images/ic_no_image.png',
+                          width: 220.0,
+                          height: 220.0,
+                          fit: BoxFit.cover,
+                        ),
                 ],
               ),
             ),
@@ -133,35 +108,8 @@ class _MyAppState extends State<MyApp> {
     }
 
     setState(
-          () {
+      () {
         _conteudo_qr = result;
-      },
-    );
-  }
-
-  void _generateQR(String content) async {
-    if (content.trim().length == 0) {
-      _scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-          content: Text('Texto a ser codificado em QR:'),
-        ),
-      );
-      setState(
-            () {
-          _qrImg = null;
-        },
-      );
-      return;
-    }
-    Image image;
-    try {
-      image = await QrUtils.generateQR(content);
-    } on PlatformException {
-      image = null;
-    }
-    setState(
-          () {
-        _qrImg = image;
       },
     );
   }

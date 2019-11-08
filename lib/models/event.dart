@@ -1,6 +1,6 @@
-class Guest {
-  final String GuID;
+class Evento {
   final String nome;
+  final String evento;
   final String data;
 
   Guest({this.nome, this.evento, this.data});
